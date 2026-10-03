@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taller Corte & Grabado · Modelo 2 Láser</title>
+  <meta name="description" content="Donde la luz dibuja tus ideas: grabado y corte láser en madera, mates, virolas y más.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/prueba2.css">
+  <link rel="stylesheet" href="css/carousel.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#"><i></i><span data-brand></span></a>
+    <nav><a href="#nosotros">Cómo trabajamos</a><a href="#creaciones">Galería</a><a href="#contacto">Contacto</a></nav>
+  </header>
+
+  <main>
+    <div id="home">
+      <section class="hero">
+        <div class="beam" aria-hidden="true"></div>
+        <p class="tag">● Grabado & corte láser de precisión</p>
+        <h1>Tu idea, <em>dibujada con luz</em>.</h1>
+        <p class="lead">Madera, mates, virolas y metal con detalles que no se borran. Diseñamos juntos, vos recibís algo que solo existe una vez.</p>
+        <div class="hero__cta">
+          <a class="btn" href="#creaciones">Ver galería</a>
+          <a class="btn btn--ghost" data-wa target="_blank" rel="noopener">Hablar con el taller</a>
+        </div>
+      </section>
+
+      <section id="nosotros" class="steps">
+        <div class="reveal"><b>01</b><h3>Elegís</h3><p>Una pieza de la galería o una idea propia.</p></div>
+        <div class="reveal"><b>02</b><h3>Nos contás</h3><p>Texto, dibujo o foto. Te confirmamos el diseño.</p></div>
+        <div class="reveal"><b>03</b><h3>Lo grabamos</h3><p>Corte y grabado láser con acabado a mano.</p></div>
+        <div class="reveal"><b>04</b><h3>Lo recibís</h3><p>Pago seguro con Mercado Pago, sin registros.</p></div>
+      </section>
+
+      <section id="trabajos" class="works">
+        <div class="works__head"><h2>Hecho con luz</h2><p>Piezas reales que ya grabamos y cortamos.</p></div>
+        <div id="carousel" class="car" aria-roledescription="carrusel" aria-label="Trabajos realizados"></div>
+      </section>
+      <section id="creaciones" class="section">
+        <h2>Galería</h2>
+        <p class="section__sub">Cada pieza se personaliza antes de grabarse.</p>
+        <div id="grid" class="grid"></div>
+      </section>
+
+      <section id="contacto" class="cta reveal">
+        <h2>¿Algo que no ves acá?</h2>
+        <p>Si lo podés imaginar, probablemente lo podamos grabar.</p>
+        <a class="btn" data-wa target="_blank" rel="noopener">Contanos tu idea</a>
+      </section>
+    </div>
+
+    <section id="detail" class="detail" hidden>
+      <a id="back" class="back" href="#creaciones">← Galería</a>
+      <div class="detail__grid">
+        <div class="detail__media" id="d-media" aria-hidden="true"></div>
+        <div class="detail__info">
+          <h1 id="d-title"></h1>
+          <p id="d-desc" class="lead"></p>
+          <p class="detail__price" id="d-price"></p>
+          <label for="comment">Tu personalización</label>
+          <textarea id="comment" rows="4" placeholder="Texto, tipografía, tamaño, referencia de dibujo…"></textarea>
+          <div class="row">
+            <div><label for="name">Nombre (opcional)</label><input id="name" autocomplete="name"></div>
+            <div><label for="contact">WhatsApp o email (opcional)</label><input id="contact" autocomplete="email"></div>
+          </div>
+          <button id="buy" class="btn" type="button">Comprar</button>
+          <p id="d-status" class="status" role="status"></p>
+          <p class="note">🔒 Pago protegido por Mercado Pago. En celular se abre la app; si no la tenés, continuás en la web.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>© <span data-year></span> <span data-brand></span></p></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

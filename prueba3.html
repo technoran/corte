@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taller Corte & Grabado · Modelo 3 Editorial</title>
+  <meta name="description" content="Objetos de madera y metal grabados con tu historia. Un taller cercano, sin apuro y a tu medida.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/prueba3.css">
+  <link rel="stylesheet" href="css/carousel.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#" data-brand></a>
+    <nav><a href="#nosotros">Historia</a><a href="#creaciones">Piezas</a><a href="#contacto">Escribinos</a></nav>
+  </header>
+
+  <main>
+    <div id="home">
+      <section class="hero">
+        <p class="eyebrow">Taller artesanal · Grabado y corte láser</p>
+        <h1>Hay objetos que guardan <em>historias</em>.</h1>
+        <p class="lead">Nos gusta que lo cotidiano se vuelva especial: un mate con tu nombre, un cuadro de tu mascota, una cadenita con una fecha.</p>
+        <a class="link" href="#creaciones">Conocer las piezas ↓</a>
+      </section>
+
+      <section id="nosotros" class="story">
+        <div class="reveal"><h3>Sin apuro</h3><p>Cada pieza se piensa, se prueba y se termina a mano.</p></div>
+        <div class="reveal"><h3>Cerca tuyo</h3><p>Una persona real responde tus dudas, siempre.</p></div>
+        <div class="reveal"><h3>Tranquilidad</h3><p>Sin registrarte. El pago se hace en Mercado Pago.</p></div>
+      </section>
+
+      <section id="trabajos" class="works">
+        <div class="works__head"><h2>Trabajos realizados</h2><p>Algunas de las historias que ya guardamos en madera y metal.</p></div>
+        <div id="carousel" class="car" aria-roledescription="carrusel" aria-label="Trabajos realizados"></div>
+      </section>
+      <section id="creaciones" class="section">
+        <h2>Piezas del taller</h2>
+        <p class="section__sub">Elegí una y personalizala en el siguiente paso.</p>
+        <div id="grid" class="grid"></div>
+      </section>
+
+      <section id="contacto" class="cta reveal">
+        <h2>Charlemos sobre tu idea</h2>
+        <p>Escribinos, contanos qué querés regalar o recordar y te ayudamos a diseñarlo.</p>
+        <a class="btn" data-wa target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </section>
+    </div>
+
+    <section id="detail" class="detail" hidden>
+      <a id="back" class="link" href="#creaciones">← Volver a las piezas</a>
+      <div class="detail__grid">
+        <div class="detail__media" id="d-media" aria-hidden="true"></div>
+        <div class="detail__info">
+          <h1 id="d-title"></h1>
+          <p id="d-desc" class="lead"></p>
+          <p class="detail__price" id="d-price"></p>
+          <label for="comment">¿Querés agregar algo?</label>
+          <textarea id="comment" rows="4" placeholder="Un nombre, una frase, un dibujo, un tamaño…"></textarea>
+          <div class="row">
+            <div><label for="name">Tu nombre (opcional)</label><input id="name" autocomplete="name"></div>
+            <div><label for="contact">WhatsApp o email (opcional)</label><input id="contact" autocomplete="email"></div>
+          </div>
+          <button id="buy" class="btn" type="button">Comprar</button>
+          <p id="d-status" class="status" role="status"></p>
+          <p class="note">Pagás con Mercado Pago: en el celular se abre la app y, si no la tenés, seguís desde la web.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>© <span data-year></span> <span data-brand></span></p></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

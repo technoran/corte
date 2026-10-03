@@ -1,0 +1,18 @@
+.works{padding:4rem 5vw 1rem}
+.works__head h2{font-size:clamp(1.7rem,3.5vw,2.5rem)}
+.works__head p{color:var(--car-muted);margin:.4rem 0 1.6rem}
+.car{position:relative;overflow:hidden;border-radius:var(--car-radius);background:var(--car-bg);box-shadow:var(--car-shadow)}
+.car__track{display:flex;transition:transform .7s cubic-bezier(.65,0,.35,1);touch-action:pan-y}
+.car__slide{flex:0 0 100%;position:relative;min-height:340px;display:grid;place-items:center;background:var(--car-grad)}
+.car__slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.car__icon{font-size:7rem;filter:drop-shadow(0 10px 14px rgba(0,0,0,.25))}
+.car__cap{position:absolute;left:0;right:0;bottom:0;padding:2.5rem 1.6rem 1.3rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.car__cap b{display:block;font-size:1.3rem}
+.car__cap span{opacity:.9}
+.car__btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.9);color:#222;font-size:1.4rem;cursor:pointer;z-index:2;transition:transform .2s}
+.car__btn:hover{transform:translateY(-50%) scale(1.1)}
+.car__btn--prev{left:1rem}.car__btn--next{right:1rem}
+.car__dots{position:absolute;right:1.4rem;bottom:1.2rem;display:flex;gap:.5rem;z-index:2}
+.car__dots button{width:10px;height:10px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:width .3s,background .3s}
+.car__dots button[aria-current="true"]{width:26px;border-radius:6px;background:#fff}
+@media(max-width:800px){.car__slide{min-height:260px}.car__icon{font-size:5rem}.car__btn{display:none}}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taller Corte & Grabado · Modelo 1 Cálido</title>
+  <meta name="description" content="Grabados y corte láser en madera, mates, virolas y cadenitas. Piezas hechas con cariño, a tu medida.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/carousel.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#"><span class="brand__mark">◈</span> <span data-brand></span></a>
+    <nav>
+      <a href="#nosotros">Nuestro taller</a>
+      <a href="#creaciones">Creaciones</a>
+      <a href="#contacto">Hablemos</a>
+    </nav>
+  </header>
+
+  <main>
+    <div id="home">
+      <section class="hero">
+        <div class="hero__text">
+          <p class="eyebrow">Hecho a mano, con láser y mucho cariño</p>
+          <h1>Los recuerdos que importan, grabados para siempre.</h1>
+          <p class="lead">Un nombre, una fecha, un dibujo. Transformamos madera, mates y metal en objetos que cuentan tu historia.</p>
+          <a class="btn btn--big" href="#creaciones">Mirá lo que podemos crear</a>
+        </div>
+        <div class="hero__art" aria-hidden="true">
+          <div class="blob"></div>
+          <span class="hero__emoji e1">🧉</span><span class="hero__emoji e2">🖼️</span><span class="hero__emoji e3">🔗</span>
+        </div>
+      </section>
+
+      <section id="nosotros" class="trust">
+        <div class="reveal"><span>🌿</span><h3>Materiales nobles</h3><p>Madera terciada, calabaza y acero seleccionados uno por uno.</p></div>
+        <div class="reveal"><span>🤝</span><h3>Te acompañamos</h3><p>Hablamos con vos hasta que el diseño sea exactamente lo que imaginaste.</p></div>
+        <div class="reveal"><span>🔒</span><h3>Pago seguro</h3><p>Pagás desde Mercado Pago, con la tranquilidad de siempre.</p></div>
+      </section>
+
+      <section id="trabajos" class="works">
+        <div class="works__head"><h2>Trabajos que ya salieron del taller</h2><p>Un vistazo a lo que hicimos para otras personas.</p></div>
+        <div id="carousel" class="car" aria-roledescription="carrusel" aria-label="Trabajos realizados"></div>
+      </section>
+      <section id="creaciones" class="section">
+        <h2>Creaciones para regalar (o regalarte)</h2>
+        <p class="section__sub">Elegí la que más te guste y contanos cómo la querés.</p>
+        <div id="grid" class="grid"></div>
+      </section>
+
+      <section id="contacto" class="cta reveal">
+        <h2>¿Tenés una idea distinta?</h2>
+        <p>Contanos qué imaginás y lo hacemos realidad. Sin compromiso.</p>
+        <a class="btn btn--big" data-wa target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+      </section>
+    </div>
+
+    <section id="detail" class="detail" hidden>
+      <a id="back" class="back" href="#creaciones">← Volver a las creaciones</a>
+      <div class="detail__grid">
+        <div class="detail__media" id="d-media" aria-hidden="true"></div>
+        <div class="detail__info">
+          <h1 id="d-title"></h1>
+          <p id="d-desc" class="lead"></p>
+          <p class="detail__price" id="d-price"></p>
+          <label for="comment">Contanos cómo lo querés (texto, dibujo, tamaño…)</label>
+          <textarea id="comment" rows="4" placeholder="Ej: Quiero el nombre «Lucía» con una flor al costado"></textarea>
+          <div class="row">
+            <div><label for="name">Tu nombre (opcional)</label><input id="name" autocomplete="name"></div>
+            <div><label for="contact">WhatsApp o email (opcional)</label><input id="contact" autocomplete="email"></div>
+          </div>
+          <button id="buy" class="btn btn--big" type="button">Comprar</button>
+          <p id="d-status" class="status" role="status"></p>
+          <p class="note">🔒 Pagás en Mercado Pago. Si tenés la app, se abre sola; si no, seguís desde la web.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>© <span data-year></span> <span data-brand></span> · Grabados y corte láser</p></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
