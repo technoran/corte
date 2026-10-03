@@ -1,7 +1,7 @@
 // Configuración del sitio: editá estos valores con los datos reales del negocio.
 window.CONFIG = {
   negocio: "TU Mundo Grabado",
-  whatsapp: "5493854172687", // código de país + número, sin + ni espacios
+  whatsapp: "5491131227159", // código de país + número, sin + ni espacios
 
   // URL de la Web App de Google Apps Script (ver apps-script/Code.gs).
   // Guarda el pedido en la planilla y crea el checkout de Mercado Pago.

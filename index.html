@@ -43,6 +43,20 @@
         <div class="reveal"><span>🔒</span><h3>Pago seguro</h3><p>Pagás desde Mercado Pago, con la tranquilidad de siempre.</p></div>
       </section>
 
+      <section id="proceso" class="showcase">
+        <div class="showcase__video reveal">
+          <video id="laser-video" muted loop playsinline preload="metadata" poster="image/horizontal.jpg" aria-label="Láser grabando una pieza de madera">
+            <source src="image/grabados%20laser.mp4" type="video/mp4">
+          </video>
+          <span class="showcase__tag">● En vivo desde el taller</span>
+        </div>
+        <div class="showcase__text reveal">
+          <p class="eyebrow">Así nace cada pieza</p>
+          <h2>Mirá cómo el láser le da vida a tu idea</h2>
+          <p class="lead">Cada grabado se hace con precisión, una pieza a la vez. Tu nombre, tu dibujo, tu fecha especial.</p>
+          <a class="btn" href="#creaciones">Quiero el mío</a>
+        </div>
+      </section>
       <section id="trabajos" class="works">
         <div class="works__head"><h2>Trabajos que ya salieron del taller</h2><p>Un vistazo a lo que hicimos para otras personas.</p></div>
         <div id="carousel" class="car" aria-roledescription="carrusel" aria-label="Trabajos realizados"></div>
@@ -100,5 +114,12 @@
 
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    (function(){
+      var v=document.getElementById('laser-video');
+      if(!v||matchMedia('(prefers-reduced-motion:reduce)').matches){if(v)v.controls=true;return}
+      new IntersectionObserver(function(e){e[0].isIntersecting?v.play().catch(function(){}):v.pause()},{threshold:.35}).observe(v);
+    })();
+  </script>
 </body>
 </html>
