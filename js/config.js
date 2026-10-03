@@ -5,7 +5,7 @@ window.CONFIG = {
 
   // URL de la Web App de Google Apps Script (ver apps-script/Code.gs).
   // Guarda el pedido en la planilla y crea el checkout de Mercado Pago.
-  sheetEndpoint: "https://script.google.com/macros/s/AKfycbwWfYUyiELS_8Hzb2RwLow8mEPTPsFwOA7zwPz9R2IenoiWUrY37wuf_ZVex2UUcSak/exec",
+  sheetEndpoint: "https://script.google.com/macros/s/AKfycby6x7EP4vPkD_n8rTVi4A7tyF66CvjbemHps8gr6zOa5Eti8MiA7S9IEZdzCK-Xubw7/exec",
 
   currency: "ARS",
 };
