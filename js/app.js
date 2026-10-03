@@ -60,6 +60,25 @@
     }
   }
 
+  // JSONP: Apps Script no envía cabeceras CORS, pero sí permite cargar la respuesta como <script>
+  function sendOrder(order) {
+    return new Promise((resolve, reject) => {
+      const cb = "__order_" + Date.now();
+      const s = document.createElement("script");
+      const done = () => {
+        clearTimeout(t);
+        delete window[cb];
+        s.remove();
+      };
+      const t = setTimeout(() => { done(); reject(new Error("timeout")); }, 30000);
+      window[cb] = (data) => { done(); resolve(data); };
+      s.onerror = () => { done(); reject(new Error("script error")); };
+      const q = new URLSearchParams({ d: JSON.stringify(order), callback: cb });
+      s.src = CONFIG.sheetEndpoint + (CONFIG.sheetEndpoint.includes("?") ? "&" : "?") + q;
+      document.head.appendChild(s);
+    });
+  }
+
   async function buy() {
     if (!current) return;
     const btn = $("buy");
@@ -71,7 +90,7 @@
       productId: current.id,
       producto: current.name,
       precio: current.price,
-      comentario: $("comment").value.trim(),
+      comentario: $("comment").value.trim().slice(0, 600),
       nombre: $("name").value.trim(),
       contacto: $("contact").value.trim(),
       origen: document.title,
@@ -81,14 +100,9 @@
 
     if (CONFIG.sheetEndpoint) {
       try {
-        // text/plain evita el preflight CORS que Apps Script no soporta
-        const res = await fetch(CONFIG.sheetEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(order),
-        });
-        const data = await res.json();
+        const data = await sendOrder(order);
         if (data.init_point) payUrl = data.init_point;
+        else if (data.error) console.warn("Error del servidor de pedidos:", data.error);
       } catch (e) {
         console.warn("No se pudo contactar al servidor de pedidos", e);
       }

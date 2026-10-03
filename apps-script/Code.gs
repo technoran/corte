@@ -25,11 +25,34 @@ var PRICES = {
   "posavasos": 11200
 };
 
+// El sitio llama por GET con JSONP (?d=<pedido JSON>&callback=fn) para evitar problemas de CORS
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  var result;
+  try {
+    result = createOrder(JSON.parse(p.d || "{}"));
+  } catch (err) {
+    result = { error: String(err) };
+  }
+  var cb = p.callback;
+  if (cb && /^[A-Za-z_$][\w$.]*$/.test(cb)) {
+    return ContentService.createTextOutput(cb + "(" + JSON.stringify(result) + ");").setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  return json(result);
+}
+
 function doPost(e) {
   try {
-    var o = JSON.parse(e.postData.contents);
+    return json(createOrder(JSON.parse(e.postData.contents)));
+  } catch (err) {
+    return json({ error: String(err) });
+  }
+}
+
+function createOrder(o) {
+  try {
     var price = PRICES[o.productId];
-    if (!price) return json({ error: "producto inválido" });
+    if (!price) return { error: "producto inválido" };
 
     var sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
     var ref = Utilities.getUuid();
@@ -39,15 +62,18 @@ function doPost(e) {
 
     var props = PropertiesService.getScriptProperties();
     var token = props.getProperty("MP_ACCESS_TOKEN");
-    if (!token) return json({ ref: ref });
+    if (!token) return { ref: ref, error: "Falta la propiedad MP_ACCESS_TOKEN en el script" };
 
-    var site = props.getProperty("SITE_URL") || "";
+    var site = (props.getProperty("SITE_URL") || "").trim();
     var body = {
       items: [{ title: o.producto, quantity: 1, unit_price: price, currency_id: "ARS" }],
-      external_reference: ref,
-      back_urls: { success: site, failure: site, pending: site },
-      auto_return: "approved"
+      external_reference: ref
     };
+    // auto_return exige back_urls https válidas; sin ellas Mercado Pago rechaza la preferencia
+    if (/^https:\/\//.test(site)) {
+      body.back_urls = { success: site, failure: site, pending: site };
+      body.auto_return = "approved";
+    }
     var res = UrlFetchApp.fetch("https://api.mercadopago.com/checkout/preferences", {
       method: "post",
       contentType: "application/json",
@@ -56,9 +82,15 @@ function doPost(e) {
       muteHttpExceptions: true
     });
     var pref = JSON.parse(res.getContentText());
-    return json({ ref: ref, init_point: pref.init_point });
+    // Con credenciales de prueba el link viene en sandbox_init_point
+    var url = token.indexOf("TEST-") === 0 ? (pref.sandbox_init_point || pref.init_point) : (pref.init_point || pref.sandbox_init_point);
+    if (!url) {
+      console.error("Mercado Pago respondió: " + res.getContentText());
+      return { ref: ref, error: "Mercado Pago: " + (pref.message || res.getContentText()) };
+    }
+    return { ref: ref, init_point: url };
   } catch (err) {
-    return json({ error: String(err) });
+    return { error: String(err) };
   }
 }
 
