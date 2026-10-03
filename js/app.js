@@ -147,7 +147,8 @@
       entrega,
       comentario: $("comment").value.trim().slice(0, 600),
       nombre: $("name").value.trim(),
-      contacto: $("contact").value.trim(),
+      contacto: $("phone").value.trim().slice(0, 40),
+      email: $("email").value.trim().slice(0, 120),
       origen: document.title,
     };
 

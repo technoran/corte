@@ -14,7 +14,7 @@
  *      Ejecutar como: yo  |  Acceso: cualquier persona
  * 4. Copiá la URL en js/config.js (sheetEndpoint).
  *
- * Columnas escritas: Fecha | Referencia | Producto | Precio | Comentario | Nombre | Contacto | Origen | Estado | Envío | Entrega
+ * Columnas escritas: Fecha | Referencia | Producto | Precio | Comentario | Nombre | Contacto | Origen | Estado | Envío | Entrega | Email
  * El token nunca se expone en el navegador. Los precios se validan acá, no en el cliente.
  */
 var SHEET_ID = "1WN7AknAm5HCTtFsfVUYPphvtqiryJsTkZvSwQ1OMTGI";
@@ -101,7 +101,7 @@ function confirmOrder(ref, pay) {
       var order = {
         fecha: rows[i][0], ref: ref, producto: rows[i][2], precio: Number(rows[i][3]) || 0,
         comentario: rows[i][4], nombre: rows[i][5], contacto: rows[i][6], origen: rows[i][7],
-        envio: Number(rows[i][9]) || 0, entrega: rows[i][10],
+        envio: Number(rows[i][9]) || 0, entrega: rows[i][10], email: String(rows[i][11] || ""),
         pagoId: pay && pay.id ? String(pay.id) : "",
         payerEmail: pay && pay.payer && pay.payer.email ? pay.payer.email : ""
       };
@@ -121,7 +121,7 @@ function sendConfirmationEmails(o) {
   var owner = (props.getProperty("OWNER_EMAIL") || Session.getEffectiveUser().getEmail()).trim();
   var pdf = buildReceiptPdf(o);
   var emailRe = /[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+/;
-  var m = String(o.contacto || "").match(emailRe) || String(o.payerEmail || "").match(emailRe);
+  var m = String(o.email || "").match(emailRe) || String(o.payerEmail || "").match(emailRe);
   var client = m ? m[0] : "";
   var num = o.ref.slice(0, 8).toUpperCase();
 
@@ -162,7 +162,8 @@ function receiptRows(o) {
     ["Nº de pedido", o.ref.slice(0, 8).toUpperCase()],
     ["Fecha", fecha],
     ["Cliente", o.nombre],
-    ["Contacto / Teléfono", o.contacto || o.payerEmail || "-"],
+    ["Teléfono", o.contacto || "-"],
+    ["Email", o.email || o.payerEmail || "-"],
     ["Entrega", o.entrega],
     ["Producto", o.producto],
     ["Detalle / Comentario", o.comentario || "-"],
@@ -222,7 +223,7 @@ function createOrder(o) {
     var sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
     var ref = Utilities.getUuid();
     sheet.appendRow([
-      new Date(), ref, clean(o.producto), price, clean(o.comentario), clean(o.nombre), clean(o.contacto),       clean(o.origen), "Pendiente de pago", ship, entregaTxt
+      new Date(), ref, clean(o.producto), price, clean(o.comentario), clean(o.nombre), clean(o.contacto),             clean(o.origen), "Pendiente de pago", ship, entregaTxt, clean(o.email)
     ]);
 
     var props = PropertiesService.getScriptProperties();
