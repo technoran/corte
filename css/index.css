@@ -80,7 +80,7 @@ footer{text-align:center;padding:2rem;color:var(--muted)}
 
 @media(max-width:800px){
   .hero,.detail__grid,.row{grid-template-columns:1fr}
-  .hero{padding-top:2rem}.hero__art{max-width:260px}.hero__emoji{font-size:3rem}
+  .hero{padding-top:2rem}.hero__art{max-width:180px;order:-1;margin-bottom:.5rem}.hero__emoji{font-size:3rem}
   .top nav a:first-child{display:none}
   .detail__media{font-size:6rem;aspect-ratio:16/10}
 }
