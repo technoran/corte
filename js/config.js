@@ -5,7 +5,7 @@ window.CONFIG = {
 
   // URL de la Web App de Google Apps Script (ver apps-script/Code.gs).
   // Guarda el pedido en la planilla y crea el checkout de Mercado Pago.
-  sheetEndpoint: "https://script.google.com/macros/s/AKfycbykh46wEd6Czdk-k9e5tU7Q_pjt9Y92wRHVdUoJEU4dc6BvDrzddC72fBe6T9jpBua2/exec",
+  sheetEndpoint: "https://script.google.com/macros/s/AKfycbyqLNu49sKmVCpzYxHHYyOZNNJiJF4ACWo6wlhjH7omUZsHutulAXni_RrZKd5n9u35/exec",
 
   currency: "ARS",
 };
@@ -17,12 +17,12 @@ window.SHIPPING = {
   retiro: { enabled: true, label: "Retiro en persona (sin costo)" },
   freeFrom: 0, // envío gratis desde este monto; 0 = desactivado
   zones: {
-    noa: { label: "NOA", price: 4500 },
-    nea: { label: "NEA", price: 5500 },
-    centro: { label: "Centro", price: 5500 },
+    noa: { label: "NOA", price: 10000 },
+    nea: { label: "NEA", price: 1000 },
+    centro: { label: "Centro", price: 1000 },
     cuyo: { label: "Cuyo", price: 6000 },
-    buenosaires: { label: "Buenos Aires y CABA", price: 6500 },
-    patagonia: { label: "Patagonia", price: 8000 },
+    buenosaires: { label: "Buenos Aires y CABA", price: 1000 },
+    patagonia: { label: "Patagonia", price: 1000 },
   },
   provinces: {
     "Jujuy": "noa", "Salta": "noa", "Tucumán": "noa", "Catamarca": "noa", "La Rioja": "noa", "Santiago del Estero": "noa",
