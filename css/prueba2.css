@@ -76,3 +76,4 @@ footer{text-align:center;padding:2rem;color:var(--muted);border-top:1px solid va
   .top nav a:first-child{display:none}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.card{opacity:1;transform:none}}
+.brand__logo{height:44px;width:44px;object-fit:cover;border-radius:50%;box-shadow:0 0 14px rgba(255,106,43,.45)}

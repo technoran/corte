@@ -9,7 +9,9 @@ a{color:inherit}
 
 .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 5vw;position:sticky;top:0;background:rgba(251,244,234,.92);backdrop-filter:blur(8px);z-index:10}
 .brand{font-weight:700;font-size:1.2rem;text-decoration:none}
-.brand__mark{color:var(--wood)}
+.brand{display:flex;align-items:center;gap:.6rem}
+.brand__logo{height:44px;width:44px;object-fit:cover;border-radius:50%}
+.banner img{display:block;width:100%;height:clamp(160px,28vw,380px);object-fit:cover}
 .top nav{display:flex;gap:1.4rem}
 .top nav a{text-decoration:none;font-weight:600;color:var(--muted)}
 .top nav a:hover{color:var(--wood-d)}
@@ -60,6 +62,9 @@ a{color:inherit}
 .detail__price{font-size:2rem;font-weight:800;color:var(--wood-d);margin:.4rem 0 1.2rem}
 label{display:block;font-weight:700;margin:1rem 0 .3rem}
 textarea,input{width:100%;padding:.7rem .9rem;border:2px solid #e6d3bb;border-radius:14px;background:#fff;font:inherit;color:var(--ink)}
+select{width:100%;padding:.7rem .9rem;border:2px solid #e6d3bb;border-radius:14px;background:#fff;font:inherit;color:var(--ink)}
+select:focus{outline:0;border-color:var(--wood)}
+.detail__total{margin:1rem 0;font-weight:700;color:var(--wood-d)}
 textarea:focus,input:focus{outline:0;border-color:var(--wood)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 #buy{margin-top:1.4rem;width:100%}

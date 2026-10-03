@@ -5,6 +5,9 @@
     new Intl.NumberFormat("es-AR", { style: "currency", currency: CONFIG.currency, maximumFractionDigits: 0 }).format(n);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+  const isImg = (s) => /\.(png|jpe?g|webp|gif|svg)$/i.test(s || "");
+  const iconHtml = (s) => (isImg(s) ? `<img class="icon-img" src="${esc(s)}" alt="">` : esc(s || ""));
+
   const home = $("home");
   const detail = $("detail");
   let current = null;
@@ -13,7 +16,7 @@
     $("grid").innerHTML = PRODUCTS.map(
       (p, i) => `
       <article class="card" style="--i:${i}">
-        <div class="card__media" aria-hidden="true"><span>${p.icon}</span></div>
+        <div class="card__media" aria-hidden="true"><span>${iconHtml(p.icon)}</span></div>
         <div class="card__body">
           <h3>${esc(p.name)}</h3>
           <p>${esc(p.short)}</p>
@@ -32,13 +35,48 @@
     s.classList.toggle("is-error", !!isError);
   }
 
+  function shippingCost() {
+    const S = window.SHIPPING;
+    if (!S || !$("ship-mode") || $("ship-mode").value !== "envio") return 0;
+    const zone = S.zones[S.provinces[$("ship-prov").value]];
+    if (!zone) return 0;
+    return S.freeFrom && current && current.price >= S.freeFrom ? 0 : zone.price;
+  }
+
+  function updateTotal() {
+    const t = $("d-total");
+    if (!t || !current) return;
+    const envio = $("ship-mode").value === "envio";
+    $("ship-fields").hidden = !envio;
+    const c = shippingCost();
+    t.textContent = envio
+      ? `Envío: ${c ? money(c) : "gratis"} · Total: ${money(current.price + c)}`
+      : `Total: ${money(current.price)}`;
+  }
+
+  function initShipping() {
+    const S = window.SHIPPING;
+    const mode = $("ship-mode");
+    if (!S || !mode) return;
+    mode.innerHTML =
+      (S.retiro.enabled ? `<option value="retiro">${esc(S.retiro.label)}</option>` : "") +
+      `<option value="envio">Envío a domicilio (todo el país)</option>`;
+    $("ship-prov").innerHTML = Object.keys(S.provinces)
+      .sort((a, b) => a.localeCompare(b, "es"))
+      .map((p) => `<option value="${esc(p)}">${esc(p)} (${money(S.zones[S.provinces[p]].price)})</option>`)
+      .join("");
+    mode.addEventListener("change", updateTotal);
+    $("ship-prov").addEventListener("change", updateTotal);
+  }
+
   function showDetail(p) {
     current = p;
-    $("d-media").textContent = p.icon;
+    $("d-media").innerHTML = iconHtml(p.icon);
     $("d-title").textContent = p.name;
     $("d-desc").textContent = p.long;
     $("d-price").textContent = money(p.price);
     $("comment").value = "";
+    updateTotal();
     setStatus("");
     $("buy").disabled = false;
     $("buy").textContent = "Comprar";
@@ -81,6 +119,22 @@
 
   async function buy() {
     if (!current) return;
+    const envio = !!$("ship-mode") && $("ship-mode").value === "envio";
+    let entrega = { tipo: "retiro" };
+    if (envio) {
+      entrega = {
+        tipo: "envio",
+        provincia: $("ship-prov").value,
+        localidad: $("ship-city").value.trim().slice(0, 100),
+        cp: $("ship-cp").value.trim().slice(0, 10),
+        direccion: $("ship-addr").value.trim().slice(0, 200),
+      };
+      if (!entrega.localidad || !entrega.cp || !entrega.direccion) {
+        setStatus("Completá localidad, código postal y dirección para el envío.", true);
+        return;
+      }
+    }
+
     const btn = $("buy");
     btn.disabled = true;
     btn.textContent = "Preparando tu pago…";
@@ -90,6 +144,7 @@
       productId: current.id,
       producto: current.name,
       precio: current.price,
+      entrega,
       comentario: $("comment").value.trim().slice(0, 600),
       nombre: $("name").value.trim(),
       contacto: $("contact").value.trim(),
@@ -191,6 +246,7 @@
     });
     document.querySelectorAll("[data-brand]").forEach((e) => (e.textContent = CONFIG.negocio));
     renderGrid();
+    initShipping();
     $("buy").addEventListener("click", buy);
     $("back").addEventListener("click", (e) => {
       e.preventDefault();
