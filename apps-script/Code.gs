@@ -115,10 +115,17 @@ function confirmOrder(ref, pay) {
 }
 
 var BRAND = "TU MUNDO GRABADO";
+var OWNER_EMAIL = "elfeto17@gmail.com";
+
+// Ejecutala una vez desde el editor: pide los permisos de Gmail/Drive y manda un mail de prueba con PDF
+function testMail() {
+  var o = { fecha: new Date(), ref: Utilities.getUuid(), producto: "Producto de prueba", precio: 1000, comentario: "Prueba", nombre: "Cliente Prueba", contacto: "123456", email: "", envio: 1000, entrega: "Retiro en persona", pagoId: "TEST" };
+  sendConfirmationEmails(o);
+}
 
 function sendConfirmationEmails(o) {
   var props = PropertiesService.getScriptProperties();
-  var owner = (props.getProperty("OWNER_EMAIL") || Session.getEffectiveUser().getEmail()).trim();
+  var owner = (OWNER_EMAIL || props.getProperty("OWNER_EMAIL") || Session.getEffectiveUser().getEmail()).trim();
   var pdf = buildReceiptPdf(o);
   var emailRe = /[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+/;
   var m = String(o.email || "").match(emailRe) || String(o.payerEmail || "").match(emailRe);
